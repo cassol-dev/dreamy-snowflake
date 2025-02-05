@@ -1,55 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário com Busca de CEP</title>
+    <title>Formulário Cassol Style</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Formulário de Cadastro</h1>
-    <form id="registrationForm">
-      <label for="name">Nome:</label><br />
-      <input type="text" id="name" name="name" required /><br /><br />
+    <div class="container">
+      <h1 class="title">Cadastro de Usuário</h1>
+      <form id="registrationForm">
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" required />
+        <button type="button" id="buscarToken">Buscar Token</button>
 
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" required /><br /><br />
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" readonly disabled />
 
-      <label for="cep">CEP:</label><br />
-      <input
-        type="text"
-        id="cep"
-        name="cep"
-        required
-        maxlength="8"
-        pattern="[0-9]{8}"
-      /><br /><br />
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" required disabled />
 
-      <label for="logradouro">Logradouro:</label><br />
-      <input
-        type="text"
-        id="logradouro"
-        name="logradouro"
-        readonly
-      /><br /><br />
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" required disabled />
 
-      <label for="bairro">Bairro:</label><br />
-      <input type="text" id="bairro" name="bairro" readonly /><br /><br />
+        <label for="complemento">Complemento:</label>
+        <input type="text" id="complemento" disabled />
 
-      <label for="cidade">Cidade:</label><br />
-      <input type="text" id="cidade" name="cidade" readonly /><br /><br />
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
 
-      <label for="uf">UF:</label><br />
-      <input type="text" id="uf" name="uf" readonly /><br /><br />
-
-      <label for="numero">Número:</label><br />
-      <input type="text" id="numero" name="numero" required /><br /><br />
-
-      <label for="complemento">Complemento:</label><br />
-      <input type="text" id="complemento" name="complemento" /><br /><br />
-
-      <button type="submit">Enviar</button>
-    </form>
-
-    <script src="script.js"></script>
+        <button type="submit" id="enviarForm" disabled>Enviar</button>
+      </form>
+    </div>
   </body>
 </html>

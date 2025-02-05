@@ -1,45 +1,47 @@
-document.getElementById("cep").addEventListener("blur", async function () {
-  const cep = this.value.replace(/\D/g, ""); // Remove qualquer caractere que não seja número
+document
+  .getElementById("buscarToken")
+  .addEventListener("click", async function () {
+    const matricula = document.getElementById("matricula").value;
 
-  if (cep.length === 8) {
+    if (!matricula) {
+      alert("Por favor, informe a matrícula.");
+      return;
+    }
+
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await fetch(
+        `https://sua-api.com/token?matricula=${matricula}`
+      );
       if (response.ok) {
         const data = await response.json();
+        document.getElementById("nome").value = data.nome; // Preenche o nome do usuário
+        sessionStorage.setItem("token", data.token); // Armazena o token para uso posterior
 
-        if (data.erro) {
-          alert("CEP não encontrado!");
-        } else {
-          document.getElementById("logradouro").value = data.logradouro;
-          document.getElementById("bairro").value = data.bairro;
-          document.getElementById("cidade").value = data.localidade;
-          document.getElementById("uf").value = data.uf;
-        }
+        // Libera os campos e o botão de envio
+        liberarFormulario();
       } else {
-        alert("Erro ao buscar CEP.");
+        alert("Matrícula não encontrada.");
       }
     } catch (error) {
-      alert("Erro ao conectar com a API de CEP.");
+      alert("Erro ao buscar o token.");
       console.error(error);
     }
-  } else {
-    alert("CEP inválido!");
-  }
-});
+  });
 
 document
   .getElementById("registrationForm")
   .addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evita o envio padrão do formulário
+    event.preventDefault();
+
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      alert("Você precisa buscar o token antes de enviar o formulário.");
+      return;
+    }
 
     const formData = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
+      nome: document.getElementById("nome").value,
       cep: document.getElementById("cep").value,
-      logradouro: document.getElementById("logradouro").value,
-      bairro: document.getElementById("bairro").value,
-      cidade: document.getElementById("cidade").value,
-      uf: document.getElementById("uf").value,
       numero: document.getElementById("numero").value,
       complemento: document.getElementById("complemento").value,
     };
@@ -49,6 +51,7 @@ document
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -63,3 +66,11 @@ document
       console.error(error);
     }
   });
+
+function liberarFormulario() {
+  document.getElementById("nome").disabled = false;
+  document.getElementById("cep").disabled = false;
+  document.getElementById("numero").disabled = false;
+  document.getElementById("complemento").disabled = false;
+  document.getElementById("enviarForm").disabled = false;
+}
