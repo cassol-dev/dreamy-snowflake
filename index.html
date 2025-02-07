@@ -1,35 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário Cassol Style</title>
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/style.css"
+      media="screen"
+    />
+    <title>Formulário com Busca de CEP</title>
   </head>
-  <body>
-    <div class="container">
-      <h1 class="title">Cadastro de Usuário</h1>
+  <body class="bg_form">
+    <section class="box_form">
+      <img src="img/logo_cassol.svg" alt="logo Cassol" class="logo_cassol" />
+      <h1>Formulário de Cadastro</h1>
       <form id="registrationForm">
-        <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" required />
-        <button type="button" id="buscarToken">Buscar Token</button>
-
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" readonly disabled />
-
-        <label for="cep">CEP:</label>
-        <input type="text" id="cep" required disabled />
-
-        <label for="numero">Número:</label>
-        <input type="text" id="numero" required disabled />
-
-        <label for="complemento">Complemento:</label>
-        <input type="text" id="complemento" disabled />
-
-        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
-
-        <button type="submit" id="enviarForm" disabled>Enviar</button>
+        <p>
+          <label for="name">Nome: <span>* Obrigatório</span></label
+          ><br />
+          <input type="text" id="name" name="name" required />
+        </p>
+        <p>
+          <label for="email">Email: <span>* Obrigatório</span></label
+          ><br />
+          <input type="email" id="email" name="email" required />
+        </p>
+        <p>
+          <label for="cep">CEP: <span>* Obrigatório</span></label
+          ><br />
+          <input
+            type="text"
+            id="cep"
+            name="cep"
+            required
+            maxlength="8"
+            pattern="[0-9]{8}"
+          />
+        </p>
+        <p>
+          <label for="logradouro">Logradouro:</label><br />
+          <input type="text" id="logradouro" name="logradouro" readonly />
+        </p>
+        <p>
+          <label for="bairro">Bairro:</label><br />
+          <input type="text" id="bairro" name="bairro" readonly />
+        </p>
+        <p>
+          <label for="cidade">Cidade:</label><br />
+          <input type="text" id="cidade" name="cidade" readonly />
+        </p>
+        <p>
+          <label for="uf">UF:</label><br />
+          <input type="text" id="uf" name="uf" readonly />
+        </p>
+        <p>
+          <label for="numero">Número: <span>* Obrigatório</span></label
+          ><br />
+          <input type="text" id="numero" name="numero" required />
+        </p>
+        <p>
+          <label for="complemento">Complemento:</label><br />
+          <input type="text" id="complemento" name="complemento" />
+        </p>
+        <button type="submit" id="submitButton">ENVIAR CADASTRO</button>
       </form>
-    </div>
+      <div id="loadingSpinner" class="hidden">Carregando...</div>
+      <!-- Spinner -->
+    </section>
+
+    <footer>Feito com <span>&#x2665;</span> pela Equipe de TI da Cassol</footer>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
