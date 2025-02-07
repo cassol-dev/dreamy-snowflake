@@ -3,53 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/style.css"
+      media="screen"
+    />
     <title>Formulário com Busca de CEP</title>
   </head>
-  <body>
-    <h1>Formulário de Cadastro</h1>
-    <form id="registrationForm">
-      <label for="name">Nome:</label><br />
-      <input type="text" id="name" name="name" required /><br /><br />
+  <body class="bg_form">
+    <section class="box_form">
+      <img src="img/logo_cassol.svg" alt="logo Cassol" class="logo_cassol" />
+      <h1>Formulário de Cadastro</h1>
+      <form id="registrationForm">
+        <p>
+          <label for="name">Nome: <span>* Obrigatório</span></label
+          ><br />
+          <input type="text" id="name" name="name" required />
+        </p>
+        <p>
+          <label for="email">Email: <span>* Obrigatório</span></label
+          ><br />
+          <input type="email" id="email" name="email" required />
+        </p>
+        <p>
+          <label for="cep">CEP: <span>* Obrigatório</span></label
+          ><br />
+          <input
+            type="text"
+            id="cep"
+            name="cep"
+            required
+            maxlength="8"
+            pattern="[0-9]{8}"
+          />
+        </p>
+        <p>
+          <label for="logradouro">Logradouro:</label><br />
+          <input type="text" id="logradouro" name="logradouro" readonly />
+        </p>
+        <p>
+          <label for="bairro">Bairro:</label><br />
+          <input type="text" id="bairro" name="bairro" readonly />
+        </p>
+        <p>
+          <label for="cidade">Cidade:</label><br />
+          <input type="text" id="cidade" name="cidade" readonly />
+        </p>
+        <p>
+          <label for="uf">UF:</label><br />
+          <input type="text" id="uf" name="uf" readonly />
+        </p>
+        <p>
+          <label for="numero">Número: <span>* Obrigatório</span></label
+          ><br />
+          <input type="text" id="numero" name="numero" required />
+        </p>
+        <p>
+          <label for="complemento">Complemento:</label><br />
+          <input type="text" id="complemento" name="complemento" />
+        </p>
+        <button type="submit" id="submitButton">ENVIAR CADASTRO</button>
+      </form>
+      <!--div id="loadingSpinner" class="hidden">Carregando...</div-->
+      <!-- Spinner -->
+    </section>
 
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" required /><br /><br />
+    <footer>Feito com <span>&#x2665;</span> pela Equipe de TI da Cassol</footer>
 
-      <label for="cep">CEP:</label><br />
-      <input
-        type="text"
-        id="cep"
-        name="cep"
-        required
-        maxlength="8"
-        pattern="[0-9]{8}"
-      /><br /><br />
-
-      <label for="logradouro">Logradouro:</label><br />
-      <input
-        type="text"
-        id="logradouro"
-        name="logradouro"
-        readonly
-      /><br /><br />
-
-      <label for="bairro">Bairro:</label><br />
-      <input type="text" id="bairro" name="bairro" readonly /><br /><br />
-
-      <label for="cidade">Cidade:</label><br />
-      <input type="text" id="cidade" name="cidade" readonly /><br /><br />
-
-      <label for="uf">UF:</label><br />
-      <input type="text" id="uf" name="uf" readonly /><br /><br />
-
-      <label for="numero">Número:</label><br />
-      <input type="text" id="numero" name="numero" required /><br /><br />
-
-      <label for="complemento">Complemento:</label><br />
-      <input type="text" id="complemento" name="complemento" /><br /><br />
-
-      <button type="submit">Enviar</button>
-    </form>
-
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
