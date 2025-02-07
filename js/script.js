@@ -9,7 +9,7 @@ function hideLoading() {
 document.getElementById("cep").addEventListener("blur", async function () {
   const cep = this.value.replace(/\D/g, "");
   if (cep.length === 8) {
-    showLoading();
+    // showLoading();
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await response.json();
@@ -24,7 +24,7 @@ document.getElementById("cep").addEventListener("blur", async function () {
     } catch (error) {
       alert("Erro ao buscar o CEP.");
     } finally {
-      hideLoading();
+      // hideLoading();
     }
   } else {
     alert("Por favor, informe um CEP válido.");
@@ -55,7 +55,7 @@ document
       uf &&
       numero
     ) {
-      showLoading();
+      // showLoading();
       try {
         const payload = {
           name,
@@ -83,9 +83,53 @@ document
       } catch (error) {
         alert("Erro de conexão.");
       } finally {
-        hideLoading();
+        // hideLoading();
       }
     } else {
       alert("Preencha todos os campos obrigatórios.");
     }
   });
+
+async function getCoordinates() {
+  if (!navigator.geolocation) {
+    alert("Geolocalização não é suportada pelo seu navegador.");
+    return;
+  }
+
+  // showLoading();
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      try {
+        // Consultando a API do Nominatim para buscar endereço pelas coordenadas
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await response.json();
+        if (data.address && data.address.postcode) {
+          document.getElementById("cep").value = data.address.postcode.replace(
+            "-",
+            ""
+          );
+          alert(`CEP encontrado: ${data.address.postcode}`);
+          document.getElementById("cep").focus();
+        } else {
+          alert("Não foi possível encontrar o CEP para essa localização.");
+        }
+      } catch (error) {
+        alert("Erro ao buscar endereço pela geolocalização.");
+      } finally {
+        // hideLoading();
+      }
+    },
+    (error) => {
+      // hideLoading();
+      alert("Erro ao obter a localização.");
+    }
+  );
+}
+
+// Botão para buscar o CEP pela geolocalização
+document.getElementById("findByGeo").addEventListener("click", getCoordinates);
