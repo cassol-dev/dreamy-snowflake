@@ -31,6 +31,23 @@ document.getElementById("cep").addEventListener("blur", async function () {
   }
 });
 
+document.getElementById("celular").addEventListener("input", function (event) {
+  let value = event.target.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+  // Validação do tamanho
+  if (value.length > 11) value = value.slice(0, 11);
+
+  // Formatação (DDD + número)
+  if (value.length >= 2) {
+    value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+  }
+  if (value.length >= 10) {
+    value = `${value.slice(0, 10)}-${value.slice(10)}`;
+  }
+
+  event.target.value = value;
+});
+
 document
   .getElementById("registrationForm")
   .addEventListener("submit", async function (event) {
@@ -45,8 +62,97 @@ document
     const numero = document.getElementById("numero").value;
     const complemento = document.getElementById("complemento").value;
 
+    const celular = document.getElementById("celular").value.replace(/\D/g, "");
+    const dddValidos = [
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "21",
+      "22",
+      "24",
+      "27",
+      "28",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "37",
+      "38",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "51",
+      "53",
+      "54",
+      "55",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "69",
+      "71",
+      "73",
+      "74",
+      "75",
+      "77",
+      "79",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "88",
+      "89",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95",
+      "96",
+      "97",
+      "98",
+      "99",
+    ];
+
+    const ddd = celular.slice(0, 2);
+    const numeroCel = celular.slice(2);
+
+    if (!dddValidos.includes(ddd)) {
+      alert("DDD inválido! Insira um DDD correto.");
+      event.preventDefault();
+      return;
+    }
+
+    if (!/^9[0-9]{8}$/.test(numeroCel)) {
+      alert(
+        "Número de celular inválido! Deve começar com 9 e conter 9 dígitos."
+      );
+      event.preventDefault();
+      return;
+    }
+
     if (
       name &&
+      celular &&
       email &&
       cep &&
       logradouro &&
@@ -59,6 +165,7 @@ document
       try {
         const payload = {
           name,
+          celular,
           email,
           cep,
           logradouro,
